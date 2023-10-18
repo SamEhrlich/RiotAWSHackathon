@@ -538,10 +538,9 @@ ui <- fluidPage(
       "Demo",
       column(4,
              h1("Youtube Demo")
-             
       ),
       column(12,
-             HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/C3GouGa0noM?si=20zS8fsqqbE6u6Px" title="YouTube video player" 
+             HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/ad2x61Hzj9Q?si=ZsrPKXVWlhDMj4Iq" title="YouTube video player" 
                   frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; 
                   web-share" allowfullscreen></iframe>')
       )
@@ -549,7 +548,7 @@ ui <- fluidPage(
     ),
     tabPanel(
       "Methodology Write Up",
-      column(4,
+      column(10,
              h1("Methodology Write Up"),
              
              #####
@@ -679,7 +678,7 @@ ui <- fluidPage(
     tabPanel(
       "Tooling",
       column(10,
-             h1('Tooling: Include an explanation of the AWS services used to build the project.'),
+             h1('Tooling'),
              p("For this project I utilized Athena, Glue, S3, IAM, and EC2 from the AWS catalog. 
                I created tables in Athena using the ddl supplied from the starter guide. 
                This used Glue to parse the files and build the datatables. 
@@ -693,9 +692,8 @@ ui <- fluidPage(
     tabPanel(
       'Code',
       column(4,
-             h1('Code: Provide a URL to your code repository to show how your project was built. 
-                Please provide access by sharing it with: testing@devpost.com, 
-                riot-esports-hackathon-rg@riotgames.com, and aws-riotgames-hackathons@amazon.com '))
+             h1('Link to Github Repository'),
+             uiOutput("github_link"))
     )
   )
 )
@@ -808,6 +806,7 @@ server <- function(input, output, session) {
     )
   })
   
+  #graph for methodology 
   output$t1_graph <- renderPlot({
     
     ggplot(all_team_schedule_reactive() %>%
@@ -822,6 +821,13 @@ server <- function(input, output, session) {
       annotate("text", label =  "Poby Leaves \n Faker Joins", x = 82, y = 1150)
     
   })
+  
+  #github link
+  github <- a("Github Repository", href="https://github.com/SamEhrlich/RiotAWSHackathon/tree/main")
+  output$github_link <- renderUI({
+    tagList("URL link:", github)
+  })
+  
   
   
 }
